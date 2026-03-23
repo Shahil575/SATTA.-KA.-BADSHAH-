@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Game Result System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: #d40000;
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        section {
+            margin: 20px auto;
+            max-width: 900px;
+            padding: 0 15px;
+        }
+
+        h3 {
+            color: #333;
+            border-bottom: 2px solid #d40000;
+            padding-bottom: 8px;
+            display: inline-block;
+            margin-top: 0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            white-space: nowrap;
+        }
+
+        th, td {
+            border: 1px solid #eaeaea;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        th {
+            background: #333;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .number {
+            background: #28a745;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #d40000;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .btn-download {
+            background: #0056b3;
+            margin-top: 20px;
+        }
+
+        .btn-download:hover {
+            background: #004494;
+        }
+
+        .history {
+            margin-top: 25px;
+            background: #fff;
+            padding: 15px;
+            font-size: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .history-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-item strong {
+            color: #d40000;
+        }
+
+        /* Toast Message Box (Alert Alternative) */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 15px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;} 
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;} 
+            to {bottom: 0; opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    FINAL GAME RESULT LIST + DAILY UPDATE + HISTORY
+</header>
+
+<section>
+    <h3>आज का रिज़ल्ट</h3>
+    <div class="table-container">
+        <table id="resultTable">
+            <tr>
+                <th>GAME NAME</th>
+                <th>NUMBER</th>
+                <th>TIME</th>
+                <th>DATE</th>
+            </tr>
+            <tr><td>DISAWR</td><td class="number">000</td><td>05:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>DILHI BAZAR</td><td class="number">000</td><td>03:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>SHREE GANESH</td><td class="number">000</td><td>04:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>FRIDABAD</td><td class="number">000</td><td>06:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>GAJIYABAD</td><td class="number">000</td><td>07:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>GALI</td><td class="number">000</td><td>11:30 PM</td><td>23-03-2026</td></tr>
+            <tr><td>BHIYYA NAGAR</td><td class="number">000</td><td>01:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>SUPER KING</td><td class="number">000</td><td>02:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>FINAL GAME</td><td class="number">000</td><td>09:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>RAJKOT</td><td class="number">000</td><td>08:00 PM</td><td>23-03-2026</td></tr>
+            <tr><td>SURAT</td><td class="number">000</td><td>10:00 PM</td><td>23-03-2026</td></tr>
+        </table>
+    </div>
+</section>
+
+<section class="container">
+    <h3>रोजाना अपडेट करें</h3>
+    
+    <div class="form-group">
+        <label>गेम का नाम:</label> 
+        <input type="text" id="game" placeholder="जैसे: DISAWR">
+    </div>
+
+    <div class="form-group">
+        <label>नंबर:</label> 
+        <input type="text" id="number" placeholder="जैसे: 123">
+    </div>
+
+    <div class="form-group">
+        <label>समय:</label> 
+        <input type="text" id="time" placeholder="जैसे: 05:00 PM">
+    </div>
+
+    <div class="form-group">
+        <label>तारीख:</label> 
+        <input type="date" id="date">
+    </div>
+
+    <button onclick="saveData()">Save / Update</button>
+
+    <div class="history" id="history">
+        <div id="historyPlaceholder" style="color: #888; text-align: center; margin-top: 10px;">यहाँ पूरा पुराना रिकॉर्ड दिखेगा</div>
+    </div>
+
+    <!-- Download Button -->
+    <button class="btn-download" onclick="downloadHTMLFile()">📥 Download App (इस पेज को डाउनलोड करें)</button>
+</section>
+
+<!-- Custom Message Box -->
+<div id="toast">Message goes here</div>
+
+<script>
+    // Show a custom message (Toast) instead of default browser alert
+    function showMessage(msg, isError = false) {
+        var toast = document.getElementById("toast");
+        toast.innerText = msg;
+        toast.style.backgroundColor = isError ? "#d40000" : "#333";
+        toast.className = "show";
+        setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    function saveData() {
+        var game = document.getElementById("game").value.trim().toUpperCase();
+        var number = document.getElementById("number").value.trim();
+        var time = document.getElementById("time").value.trim();
+        var dateInput = document.getElementById("date").value;
+
+        // Validation
+        if (!game) {
+            showMessage("कृपया गेम का नाम दर्ज करें!", true);
+            return;
+        }
+        if (!number) {
+            showMessage("कृपया नंबर दर्ज करें!", true);
+            return;
+        }
+
+        var table = document.getElementById("resultTable");
+        var updated = false;
+
+        // Loop through table rows starting from index 1 (skipping header)
+        for (var i = 1; i < table.rows.length; i++) {
+            var row = table.rows[i];
+            var cellGameName = row.cells[0].innerText.toUpperCase();
+
+            // Check if game name matches
+            if (cellGameName === game) {
+                
+                // Update Number
+                row.cells[1].innerText = number;
+                
+                // Update Time if provided
+                var updateTime = time || row.cells[2].innerText;
+                row.cells[2].innerText = updateTime;
+
+                // Update Date if provided and format it to DD-MM-YYYY
+                var updateDate = row.cells[3].innerText;
+                if (dateInput) {
+                    var d = new Date(dateInput);
+                    var day = ("0" + d.getDate()).slice(-2);
+                    var month = ("0" + (d.getMonth() + 1)).slice(-2);
+                    var year = d.getFullYear();
+                    updateDate = day + "-" + month + "-" + year;
+                    row.cells[3].innerText = updateDate;
+                }
+
+                updated = true;
+
+                // Add to history
+                updateHistory(game, number, updateTime, updateDate);
+                break; // Stop loop once updated
+            }
+        }
+
+        if (updated) {
+            showMessage("सफलतापूर्वक अपडेट किया गया: " + game);
+            // Clear input fields after success
+            document.getElementById("game").value = "";
+            document.getElementById("number").value = "";
+            document.getElementById("time").value = "";
+            document.getElementById("date").value = "";
+        } else {
+            showMessage("त्रुटि: यह गेम लिस्ट में नहीं मिला। कृपया सही स्पेलिंग डालें।", true);
+        }
+    }
+
+    function updateHistory(game, number, time, date) {
+        var historyDiv = document.getElementById("history");
+        var placeholder = document.getElementById("historyPlaceholder");
+        
+        // Remove placeholder if it exists
+        if (placeholder) {
+            placeholder.remove();
+        }
+
+        // Create new history entry
+        var entry = document.createElement("div");
+        entry.className = "history-item";
+        
+        var currentTime = new Date().toLocaleTimeString();
+        
+        entry.innerHTML = "<strong>" + game + "</strong> का नंबर <strong>" + number + "</strong> अपडेट किया गया। (समय: " + time + " | तारीख: " + date + ")";
+        
+        // Add to the top of the history list
+        historyDiv.prepend(entry);
+    }
+
+    // Function to download the HTML file
+    function downloadHTMLFile() {
+        var htmlContent = document.documentElement.outerHTML;
+        var blob = new Blob([htmlContent], { type: "text/html" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "game_result.html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showMessage("फ़ाइल डाउनलोड हो गई है!");
+    }
+</script>
+
+</body>
+</html>
+
+
